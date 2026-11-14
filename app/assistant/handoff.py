@@ -5,8 +5,9 @@ Asistanın emin olamadığı veya kullanıcının özellikle yetkili talep etti�
 durumlarda konuşma bağlamını canlı destek ekibine aktarır.
 """
 
-from datetime import datetime, timezone
-from typing import Any, Dict, List
+from datetime import UTC, datetime
+from typing import Any
+
 from app.assistant.confidence import ConfidenceEvaluation
 
 HANDOFF_KEYWORDS = [
@@ -18,15 +19,16 @@ HANDOFF_KEYWORDS = [
     "operatör",
 ]
 
+
 def should_trigger_handoff(
     user_message: str,
     confidence_eval: ConfidenceEvaluation,
-) -> tuple[bool, List[str]]:
+) -> tuple[bool, list[str]]:
     """
     Kullanıcı mesajındaki açık taleplere veya güven değerlendirmesine göre
     insana devir gerekip gerekmediğini belirler.
     """
-    reasons: List[str] = []
+    reasons: list[str] = []
     normalized_msg = user_message.lower().strip()
 
     if any(keyword in normalized_msg for keyword in HANDOFF_KEYWORDS):
@@ -43,10 +45,10 @@ def should_trigger_handoff(
 def create_handoff_payload(
     session_id: str,
     user_message: str,
-    chat_history: List[Dict[str, str]],
-    tool_results: List[Dict[str, Any]],
-    handoff_reasons: List[str],
-) -> Dict[str, Any]:
+    chat_history: list[dict[str, str]],
+    tool_results: list[dict[str, Any]],
+    handoff_reasons: list[str],
+) -> dict[str, Any]:
     """
     Canlı destek ekibinin ekranına düşecek devir paketini ve kullanıcıya
     gösterilecek bilgilendirme mesajını oluşturur.
@@ -62,7 +64,7 @@ def create_handoff_payload(
     return {
         "handoff_required": True,
         "session_id": session_id,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "timestamp": datetime.now(UTC).isoformat(),
         "risk_level": detected_risk,
         "reasons": handoff_reasons,
         "user_message_for_display": (

@@ -6,7 +6,7 @@ belirsizlik veya çelişki durumunda insana devir (handoff) kararını tetikler.
 """
 
 from dataclasses import dataclass
-from typing import Any, Dict, List
+from typing import Any
 
 DEFAULT_CONFIDENCE_THRESHOLD = 0.70
 
@@ -18,11 +18,11 @@ class ConfidenceEvaluation:
     is_confident: bool
     overall_confidence: float
     needs_handoff: bool
-    reasons: List[str]
+    reasons: list[str]
 
 
 def evaluate_tool_confidence(
-    tool_results: List[Dict[str, Any]],
+    tool_results: list[dict[str, Any]],
     threshold: float = DEFAULT_CONFIDENCE_THRESHOLD,
 ) -> ConfidenceEvaluation:
     """
@@ -42,13 +42,13 @@ def evaluate_tool_confidence(
     min_confidence = min(confidences)
     avg_confidence = sum(confidences) / len(confidences)
 
-    reasons: List[str] = []
+    reasons: list[str] = []
     needs_handoff = False
 
     if min_confidence < threshold:
         needs_handoff = True
         reasons.append(
-            f"Model güven skoru ({min_confidence:.2f}), belirlenen eşik değerin ({threshold:.2f}) altında."
+            f"Güven skoru ({min_confidence:.2f}), eşik değerin ({threshold:.2f}) altında."
         )
 
     if "low" in risk_levels and "high" in risk_levels:

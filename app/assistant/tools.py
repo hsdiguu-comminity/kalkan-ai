@@ -5,10 +5,10 @@ Bu modül; metin sınıflandırıcı, URL risk analizi ve ekran görüntüsü (O
 modellerini LLM asistanının çağırabileceği standart araçlar olarak sunar.
 """
 
-from typing import Any, Dict, List
+from typing import Any
 
 
-def analyze_message_text(text: str) -> Dict[str, Any]:
+def analyze_message_text(text: str) -> dict[str, Any]:
     """
     Kullanıcıdan gelen mesaj metnini dolandırıcılık ihtimaline karşı analiz eder.
     Kullanıcı-8 (Yaren) tarafından geliştirilen sınıflandırıcı katmanını çağırır.
@@ -20,13 +20,13 @@ def analyze_message_text(text: str) -> Dict[str, Any]:
         "confidence": 0.88,
         "category": "kargo",
         "reasons": [
-            "Mesajda aciliyet ve ödeme baskısı olşturan ifadeler tespit edildi.",
+            "Mesajda aciliyet ve ödeme baskısı oluşturan ifadeler tespit edildi.",
             "Bilinen kargo dolandırıcılığı kalıplarıyla eşleşiyor.",
         ],
     }
 
 
-def analyze_url_risk(url: str) -> Dict[str, Any]:
+def analyze_url_risk(url: str) -> dict[str, Any]:
     """
     Mesaj içerisinde yer alan bağlantının (URL) güvenlik riskini değerlendirir.
     Kullanıcı-13 (Ayna) tarafından geliştirilen URL tahmin katmanını çağırır.
@@ -43,7 +43,7 @@ def analyze_url_risk(url: str) -> Dict[str, Any]:
     }
 
 
-def extract_and_analyze_screenshot(image_path: str) -> Dict[str, Any]:
+def extract_and_analyze_screenshot(image_path: str) -> dict[str, Any]:
     """
     Ekran görüntüsündeki metni OCR ile çıkarır ve sınıflandırıcıya iletir.
     Kullanıcı-10 (Meryem) tarafından geliştirilen OCR katmanını çağırır.
@@ -61,7 +61,7 @@ def extract_and_analyze_screenshot(image_path: str) -> Dict[str, Any]:
     }
 
 
-def get_assistant_tools_schema() -> List[Dict[str, Any]]:
+def get_assistant_tools_schema() -> list[dict[str, Any]]:
     """
     LLM ana akışının (Kullanıcı-1 / Aleyna) kullanabilmesi için araçların
     OpenAI/LangChain uyumlu JSON şema tanımlarını döndürür.
@@ -71,7 +71,9 @@ def get_assistant_tools_schema() -> List[Dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "analyze_message_text",
-                "description": "Şüpheli SMS, e-posta veya mesaj metninin dolandırıcılık riskini analiz eder.",
+                "description": (
+                    "Şüpheli SMS, e-posta veya mesaj metninin dolandırıcılık riskini analiz eder."
+                ),
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -88,7 +90,9 @@ def get_assistant_tools_schema() -> List[Dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "analyze_url_risk",
-                "description": "Bir web bağlantısının (URL) oltalama veya zararlı yazılım riskini ölçer.",
+                "description": (
+                    "Bir web bağlantısının (URL) oltalama veya zararlı yazılım riskini ölçer."
+                ),
                 "parameters": {
                     "type": "object",
                     "properties": {
@@ -105,7 +109,9 @@ def get_assistant_tools_schema() -> List[Dict[str, Any]]:
             "type": "function",
             "function": {
                 "name": "extract_and_analyze_screenshot",
-                "description": "Yüklenen ekran görüntüsündeki metni okur ve dolandırıcılık riskini analiz eder.",
+                "description": (
+                    "Ekran görüntüsündeki metni okur ve dolandırıcılık riskini analiz eder."
+                ),
                 "parameters": {
                     "type": "object",
                     "properties": {
