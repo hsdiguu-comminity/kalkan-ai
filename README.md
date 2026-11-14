@@ -23,6 +23,22 @@ tests/                  pytest
 
 **MVP hedefleri:** F1 ≥ 0.85 · URL ROC-AUC ≥ 0.90 · asistan doğruluğu ≥ %85 · sınıflandırma < 1 sn
 
+## Kurulum
+
+Python 3.12+ gerekir.
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate                # macOS/Linux: source .venv/bin/activate
+pip install -r requirements-dev.txt     # Servis + test araçları
+pip install -r requirements-ml.txt      # Model eğitimi, RAG, OCR (ağır, gerektiğinde)
+uvicorn app.main:app --reload --port 8002
+pytest
+ruff check . && ruff format .
+```
+
+Tüm analiz sonuçları `app/schemas/responses.py` içindeki `AnalysisResult` (risk_level + reasons) biçiminde döner.
+
 ## Çalışma kuralları
 
 - `main` korumalıdır; her değişiklik ayrı bir branch ve pull request ile gelir, en az 1 onay gerekir.
