@@ -1,0 +1,9 @@
+TEST VERİSİ — Kurgusal kargo bildirimi
+
+Bu içerik yalnızca yazılım testi içindir; onaylanmış güvenlik rehberi değildir.
+
+Örnek Kargo adlı kurgusal bir kurumdan teslimat mesajı geldiği varsayılır. Mesaj, kullanıcının bir teslimat beklediğini söyler. Örnek bağlantı https://kargo.example/teslimat olarak verilmiştir.
+
+Bu paragraf farklı bir konuyu temsil eder: kaynak bilgisi. Bölünen her metin parçasının hangi belgeden geldiği korunmalıdır. Aynı metin iki ayrı belgede bulunursa kaynakları ayırt edilebilmelidir.
+
+Son paragraf testin tamamlandığını belirtir. Türkçe karakterler: ç, ğ, ı, İ, ö, ş, ü.
