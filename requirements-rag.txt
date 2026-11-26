@@ -1,0 +1,5 @@
+# Yalnızca RAG içe aktarma için; OCR ve sınıflandırıcı paketlerini kurmaz.
+-r requirements.txt
+torch>=2.5
+transformers>=4.46,<6
+chromadb>=1.0,<2
